@@ -1,5 +1,7 @@
 import React from "react";
-import DebtSelector from "./components/DebtSelector";
 import { render } from "react-dom";
+import Router from "./components/Router"
+import "./css/style.css";
 
-render(<DebtSelector />, document.querySelector("#main"));
+
+render(<Router />, document.querySelector("#main"));
