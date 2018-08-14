@@ -1,3 +1,9 @@
+
+// TODO : create function to do the math on the running debt total
+export function runningTotal (payment) {
+  const total = debt - payment;
+}
+
 export function formatPrice(cents) {
   return (cents / 100).toLocaleString("en-US", {
     style: "currency",
