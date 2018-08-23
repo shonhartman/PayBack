@@ -17,17 +17,26 @@ class App extends React.Component {
         // 3. Set the new debts object to state
         this.setState({ debts });
     }
+
+    addPayment = (key) => {
+        // 1. take a copy of state
+        const progress = { ...this.state.progress };
+        // 2. either add to the order, or update the number
+        progress[key] = progress[key] + 1 || 1; //this needs to be a variable based on payment amount
+        // 3. call setState to update our state object
+        this.setState({ progress });
+    }
+
     render() {
         return (
             <div className="catch-of-the-day">
                 <div className="menu">
                     <Header tagline="I am dynamic" />
                     <ul className="fishes">
-                    {Object.keys(this.state.debts).map(key => <Debt key={key} /> )}
-                        <Debt />
+                        {Object.keys(this.state.debts).map(key => <Debt key={key} details={this.state.debts[key]} addPayment={this.addPayment} index={key} /> )}
                     </ul>
                 </div>
-                <Progress />
+                <Progress debts={this.state.debts} progress={this.state.progress} />
                 <Entry addDebt={this.addDebt} />
             </div>
         )
