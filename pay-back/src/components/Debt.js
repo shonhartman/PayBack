@@ -14,7 +14,9 @@ class Debt extends React.Component {
                     {name}
                     <span className="price">{formatPrice(amount)}</span>
                 </h3>
-                <p>{desc}</p>
+                <ol>
+                    {Object.keys(this.props.details.desc).map(key => <li key={key}>{this.props.details.desc[key]}</li>)}
+                </ol>
                 <button disabled={!isOpen} onClick={this.handleClick}>{isOpen ? "Make a Payment" : "Paid!"}</button>
             </div>
         )

@@ -18,8 +18,7 @@ class AddDebtForm extends React.Component {
             const item = this.descRef.current.value;
             desc = this.state.desc.push(item);
             this.setState([desc]);
-            console.log(this.descRef.current);
-            this.descRef.current.form.reset();
+            this.descRef.current.value = "";
         }
     }
 
@@ -30,11 +29,15 @@ class AddDebtForm extends React.Component {
             name: this.nameRef.current.value,
             amount: parseFloat(this.amountRef.current.value),
             status: this.statusRef.current.value,
-            desc: this.descRef.current.value
+            // desc: this.descRef.current.value
+            desc: this.state.desc
         };
         this.props.addDebt(debt);
         // refresh the form
         event.currentTarget.reset();
+        // refresh local state
+        this.state.desc = [];
+
     }
     render() {
         return (
@@ -48,11 +51,8 @@ class AddDebtForm extends React.Component {
                 {/* <textarea name="desc" ref={this.descRef} placeholder="Desc"></textarea> */}
                 <input name="desc" ref={this.descRef} type="text" onKeyDown={this.createItem}  />
                 <ol>
-                    {Object.keys(this.state.desc).map(key => <li key={key}>{this.state.desc}</li>)}
+                    {Object.keys(this.state.desc).map(key => <li key={key}>{this.state.desc[key]}</li>)}
                 </ol>
-                {/* <ul className="fishes">
-                        {Object.keys(this.state.debts).map(key => <Debt key={key} details={this.state.debts[key]} addPayment={this.addPayment} index={key} /> )}
-                    </ul> */}
                 <button type="submit">+ Add Debt</button>
             </form>
         )
