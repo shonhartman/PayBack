@@ -16,7 +16,17 @@ class App extends React.Component {
             context: this,
             state: "debts"
         });
+        // this.ref = base.syncState(`${this.props.match.params.debtId}`, {
+        //     context: this,
+        //     asArray: true,
+        //     state: "progress"
+        // });
     }
+
+    // componentDidUpdate() {
+    //     console.log(this.state.progress);
+    //     localStorage.setItem(this.props.match.params.debtId, JSON.stringify(this.state.order));
+    // }
 
     componentWillUnmount() {
         base.removeBinding(this.ref);
@@ -28,6 +38,15 @@ class App extends React.Component {
         // 2. Add our new debt to that debts variable
         debts[`debt${Date.now()}`] = debt;
         // 3. Set the new debts object to state
+        this.setState({ debts });
+    }
+
+    updateDebt = (key, updatedDebt) => {
+        // 1. Take a copy of the current state
+        const debts = { ...this.state.debts }
+        // 2. Update that state
+        debts[key] = updatedDebt;
+        // 3. Set that to state
         this.setState({ debts });
     }
 
@@ -53,7 +72,7 @@ class App extends React.Component {
                 </div>
                 <Progress debts={this.state.debts} progress={this.state.progress} />
                 {isLoggedIn == true &&
-                    <Entry addDebt={this.addDebt} />
+                    <Entry addDebt={this.addDebt} updateDebt={this.updateDebt} debts={this.state.debts} />
                 }
             </div>
         )
